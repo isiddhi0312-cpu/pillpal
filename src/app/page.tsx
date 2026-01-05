@@ -144,7 +144,7 @@ function LoginForm({ setAuthMode }: { setAuthMode: (mode: "login" | "signup") =>
     <form onSubmit={handleSignIn}>
       <Card className="shadow-2xl rounded-xl z-10">
         <CardHeader>
-          <CardTitle className="text-2xl font-headline">Sign In</CardTitle>
+          <CardTitle className="text-2xl font-headline">Login</CardTitle>
           <CardDescription>
             Enter your credentials to access your dashboard.
           </CardDescription>
@@ -183,7 +183,7 @@ function LoginForm({ setAuthMode }: { setAuthMode: (mode: "login" | "signup") =>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button className="w-full" type="submit">
-            Sign In
+            Login
           </Button>
           <p className="text-center text-sm text-muted-foreground">
             Don't have an account?{' '}
@@ -260,7 +260,7 @@ function SignUpForm({ setAuthMode }: { setAuthMode: (mode: "login" | "signup") =
           <p className="text-center text-sm text-muted-foreground">
             Already have an account?{' '}
             <Link href="#" onClick={(e) => { e.preventDefault(); setAuthMode("login"); }} className="underline">
-              Sign In
+              Login
             </Link>
           </p>
         </CardFooter>
