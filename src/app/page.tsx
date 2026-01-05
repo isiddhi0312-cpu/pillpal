@@ -14,58 +14,58 @@ import { Pill } from "lucide-react";
 
 // SVGs for cartoon characters
 const OlderMan = () => (
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 text-primary/30 animate-pulse">
-    <circle cx="50" cy="50" r="40" fill="currentColor" fillOpacity="0.2"/>
-    <circle cx="50" cy="45" r="30" fill="hsl(var(--background))" />
-    <path d="M 35 60 Q 50 75 65 60" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="40" cy="45" r="3" fill="currentColor" />
-    <circle cx="60" cy="45" r="3" fill="currentColor" />
-    <path d="M 30 30 Q 50 20 70 30" stroke="currentColor" strokeWidth="4" fill="none" />
-    <rect x="35" y="50" width="30" height="3" fill="currentColor" />
-  </svg>
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 animate-pulse">
+      <circle cx="50" cy="50" r="40" fill="#E0F2FE" />
+      <circle cx="50" cy="45" r="30" fill="#F3E8D8" />
+      <path d="M 35 60 Q 50 75 65 60" stroke="#5C3D2E" strokeWidth="3" fill="none" />
+      <circle cx="40" cy="45" r="3" fill="#5C3D2E" />
+      <circle cx="60" cy="45" r="3" fill="#5C3D2E" />
+      <path d="M 30 30 Q 50 20 70 30" stroke="#A9A9A9" strokeWidth="4" fill="none" />
+      <rect x="35" y="50" width="30" height="3" fill="#A9A9A9" />
+    </svg>
 );
 
 const OlderWoman = () => (
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-28 h-28 text-accent/30 animate-pulse">
-     <circle cx="50" cy="50" r="40" fill="currentColor" fillOpacity="0.2"/>
-    <circle cx="50" cy="45" r="30" fill="hsl(var(--background))" />
-    <path d="M 35 62 Q 50 72 65 62" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="42" cy="48" r="3" fill="currentColor" />
-    <circle cx="58" cy="48" r="3" fill="currentColor" />
-    <path d="M 30 25 C 20 40, 80 40, 70 25" stroke="currentColor" strokeWidth="4" fill="none" />
-    <path d="M 40 45 Q 35 40 30 45" stroke="currentColor" strokeWidth="2" fill="none" />
-    <path d="M 60 45 Q 65 40 70 45" stroke="currentColor" strokeWidth="2" fill="none" />
-  </svg>
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-28 h-28 animate-pulse">
+       <circle cx="50" cy="50" r="40" fill="#FEF3C7" />
+      <circle cx="50" cy="45" r="30" fill="#F3E8D8" />
+      <path d="M 35 62 Q 50 72 65 62" stroke="#5C3D2E" strokeWidth="3" fill="none" />
+      <circle cx="42" cy="48" r="3" fill="#5C3D2E" />
+      <circle cx="58" cy="48" r="3" fill="#5C3D2E" />
+      <path d="M 30 25 C 20 40, 80 40, 70 25" stroke="#D1D5DB" strokeWidth="4" fill="none" />
+      <path d="M 40 45 Q 35 40 30 45" stroke="#A9A9A9" strokeWidth="2" fill="none" />
+      <path d="M 60 45 Q 65 40 70 45" stroke="#A9A9A9" strokeWidth="2" fill="none" />
+    </svg>
 );
 
 const Child = () => (
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 text-primary/20 animate-pulse">
-    <circle cx="50" cy="50" r="35" fill="currentColor" fillOpacity="0.2"/>
-    <circle cx="50" cy="50" r="25" fill="hsl(var(--background))" />
-    <path d="M 40 60 Q 50 70 60 60" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="43" cy="50" r="4" fill="currentColor" />
-    <circle cx="57" cy="50" r="4" fill="currentColor" />
-    <path d="M 40 40 L 60 40" stroke="currentColor" strokeWidth="3" fill="none" />
-  </svg>
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 animate-pulse">
+      <circle cx="50" cy="50" r="35" fill="#D1FAE5" />
+      <circle cx="50" cy="50" r="25" fill="#F3E8D8" />
+      <path d="M 40 60 Q 50 70 60 60" stroke="#5C3D2E" strokeWidth="3" fill="none" />
+      <circle cx="43" cy="50" r="4" fill="#5C3D2E" />
+      <circle cx="57" cy="50" r="4" fill="#5C3D2E" />
+      <path d="M 40 40 L 60 40" stroke="#6B46C1" strokeWidth="3" fill="none" />
+    </svg>
 );
 
 const MedicineBottle = () => (
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 text-primary/20 animate-pulse">
-        <rect x="30" y="20" width="40" height="10" rx="2" fill="currentColor" opacity="0.6"/>
-        <rect x="25" y="30" width="50" height="50" rx="5" fill="currentColor" opacity="0.3"/>
-        <rect x="35" y="40" width="30" height="30" rx="3" fill="hsl(var(--background))" />
-        <path d="M 40 50 h 20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-        <path d="M 50 40 v 20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 animate-pulse">
+        <rect x="30" y="20" width="40" height="10" rx="2" fill="#F472B6"/>
+        <rect x="25" y="30" width="50" height="50" rx="5" fill="#FCCEEB"/>
+        <rect x="35" y="40" width="30" height="30" rx="3" fill="white" />
+        <path d="M 40 50 h 20" stroke="#F472B6" strokeWidth="4" strokeLinecap="round" />
+        <path d="M 50 40 v 20" stroke="#F472B6" strokeWidth="4" strokeLinecap="round" />
     </svg>
 );
 
 const Syringe = () => (
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 text-accent/20 animate-pulse -rotate-45">
-        <rect x="10" y="45" width="60" height="10" rx="3" fill="currentColor" opacity="0.3"/>
-        <polygon points="65,40 75,45 75,55 65,60" fill="currentColor" opacity="0.3" />
-        <line x1="75" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="3" />
-        <rect x="5" y="40" width="10" height="20" rx="2" fill="currentColor" opacity="0.5"/>
-        <rect x="15" y="47" width="40" height="6" rx="2" fill="hsl(var(--primary))" opacity="0.5"/>
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 -rotate-45 animate-pulse">
+        <rect x="10" y="45" width="60" height="10" rx="3" fill="#A5B4FC"/>
+        <polygon points="65,40 75,45 75,55 65,60" fill="#A5B4FC" />
+        <line x1="75" y1="50" x2="90" y2="50" stroke="#818CF8" strokeWidth="3" />
+        <rect x="5" y="40" width="10" height="20" rx="2" fill="#818CF8"/>
+        <rect x="15" y="47" width="40" height="6" rx="2" fill="#4338CA" />
     </svg>
 );
 
