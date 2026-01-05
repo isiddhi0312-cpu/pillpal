@@ -11,7 +11,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/lib/app-context";
 import { useToast } from "@/hooks/use-toast";
-import { Switch } from "@/components/ui/switch";
 
 const profileSchema = z.object({
   name: z.string().min(1, "Full name is required."),
@@ -48,7 +47,7 @@ export default function ProfilePage() {
       <div>
         <h1 className="text-3xl font-headline font-bold">User Profile</h1>
         <p className="text-muted-foreground">
-          Manage your account and notification settings.
+          Manage your account information.
         </p>
       </div>
 
@@ -104,31 +103,6 @@ export default function ProfilePage() {
           </CardFooter>
         </Card>
       </form>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Notification Preferences</CardTitle>
-          <CardDescription>
-            Manage how you receive alerts. Push notifications require configuration and are currently disabled.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-            <div className="flex items-center justify-between rounded-lg border p-4">
-                <div>
-                    <Label htmlFor="push-notifications">Push Notifications</Label>
-                    <p className="text-sm text-muted-foreground">Receive alerts on your mobile device.</p>
-                </div>
-                <Switch id="push-notifications" disabled />
-            </div>
-             <div className="flex items-center justify-between rounded-lg border p-4">
-                <div>
-                    <Label htmlFor="email-notifications">Email Notifications</Label>
-                    <p className="text-sm text-muted-foreground">Get summaries and alerts via email.</p>
-                </div>
-                <Switch id="email-notifications" disabled />
-            </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }
