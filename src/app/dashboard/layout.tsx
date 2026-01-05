@@ -4,13 +4,9 @@ import {
   SidebarHeader,
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarFooter
+  SidebarTrigger
 } from "@/components/ui/sidebar";
-import { Pill, Settings } from "lucide-react";
+import { Pill } from "lucide-react";
 import { DashboardNav } from "@/components/dashboard/dashboard-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
 import { AppProvider } from "@/lib/app-context";
@@ -37,15 +33,6 @@ export default function DashboardLayout({
           <SidebarContent>
             <DashboardNav />
           </SidebarContent>
-          <SidebarFooter>
-             <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton>
-                        <Settings/> Settings
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-             </SidebarMenu>
-          </SidebarFooter>
         </Sidebar>
         <SidebarInset>
           <header className="flex h-14 items-center justify-between gap-4 border-b bg-card/50 px-4 lg:h-[60px] lg:px-6 sticky top-0 z-30 backdrop-blur-sm">
@@ -63,5 +50,3 @@ export default function DashboardLayout({
     </AppProvider>
   );
 }
-
-    

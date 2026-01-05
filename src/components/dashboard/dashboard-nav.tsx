@@ -8,7 +8,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, Pill, LineChart, Settings, CreditCard } from "lucide-react";
+import { LayoutDashboard, Pill, LineChart, Settings, CreditCard, User } from "lucide-react";
 
 const links = [
   {
@@ -26,7 +26,12 @@ const links = [
     label: "Adherence Report",
     icon: LineChart,
   },
-    {
+  {
+    href: "/dashboard/profile",
+    label: "Profile",
+    icon: User,
+  },
+  {
     href: "/dashboard/billing",
     label: "Billing",
     icon: CreditCard,
