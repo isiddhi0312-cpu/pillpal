@@ -10,18 +10,61 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Pill, HeartPulse, Stethoscope, Syringe, Activity } from "lucide-react";
+import { Pill } from "lucide-react";
+
+// SVGs for cartoon characters
+const OlderMan = () => (
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 text-primary/30 animate-pulse">
+    <circle cx="50" cy="50" r="40" fill="currentColor" fillOpacity="0.2"/>
+    <circle cx="50" cy="45" r="30" fill="hsl(var(--background))" />
+    <path d="M 35 60 Q 50 75 65 60" stroke="currentColor" strokeWidth="3" fill="none" />
+    <circle cx="40" cy="45" r="3" fill="currentColor" />
+    <circle cx="60" cy="45" r="3" fill="currentColor" />
+    <path d="M 30 30 Q 50 20 70 30" stroke="currentColor" strokeWidth="4" fill="none" />
+    <rect x="35" y="50" width="30" height="3" fill="currentColor" />
+  </svg>
+);
+
+const OlderWoman = () => (
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-28 h-28 text-accent/30 animate-pulse">
+     <circle cx="50" cy="50" r="40" fill="currentColor" fillOpacity="0.2"/>
+    <circle cx="50" cy="45" r="30" fill="hsl(var(--background))" />
+    <path d="M 35 62 Q 50 72 65 62" stroke="currentColor" strokeWidth="3" fill="none" />
+    <circle cx="42" cy="48" r="3" fill="currentColor" />
+    <circle cx="58" cy="48" r="3" fill="currentColor" />
+    <path d="M 30 25 C 20 40, 80 40, 70 25" stroke="currentColor" strokeWidth="4" fill="none" />
+    <path d="M 40 45 Q 35 40 30 45" stroke="currentColor" strokeWidth="2" fill="none" />
+    <path d="M 60 45 Q 65 40 70 45" stroke="currentColor" strokeWidth="2" fill="none" />
+  </svg>
+);
+
+const Child = () => (
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 text-primary/20 animate-pulse">
+    <circle cx="50" cy="50" r="35" fill="currentColor" fillOpacity="0.2"/>
+    <circle cx="50" cy="50" r="25" fill="hsl(var(--background))" />
+    <path d="M 40 60 Q 50 70 60 60" stroke="currentColor" strokeWidth="3" fill="none" />
+    <circle cx="43" cy="50" r="4" fill="currentColor" />
+    <circle cx="57" cy="50" r="4" fill="currentColor" />
+    <path d="M 40 40 L 60 40" stroke="currentColor" strokeWidth="3" fill="none" />
+  </svg>
+);
+
 
 export default function LoginPage() {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4 overflow-hidden">
       <div className="relative w-full max-w-sm">
 
-        {/* Floating Icons */}
-        <HeartPulse className="absolute -top-16 -left-16 w-16 h-16 text-primary/30 animate-pulse" />
-        <Stethoscope className="absolute -top-24 right-0 w-20 h-20 text-accent/30 animate-pulse delay-500" />
-        <Syringe className="absolute bottom-24 -right-24 w-16 h-16 text-primary/20 animate-pulse delay-1000" />
-        <Activity className="absolute bottom-8 -left-20 w-12 h-12 text-accent/20 animate-pulse delay-700" />
+        {/* Floating Characters */}
+        <div className="absolute -top-16 -left-20">
+          <OlderMan />
+        </div>
+        <div className="absolute -top-24 right-0">
+          <OlderWoman />
+        </div>
+        <div className="absolute bottom-8 -left-24">
+          <Child />
+        </div>
 
 
         <div className="flex flex-col items-center justify-center gap-4 mb-8">
