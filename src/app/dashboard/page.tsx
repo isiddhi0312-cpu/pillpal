@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useApp } from "@/lib/app-context";
@@ -7,14 +8,26 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Clock } from "lucide-react";
 import { AdherenceChart } from "@/components/dashboard/adherence-chart";
 import { useToast } from "@/hooks/use-toast";
+import { useEffect, useState } from "react";
+import type { Medicine } from "@/lib/types";
+import Image from "next/image";
 
 export default function DashboardPage() {
   const { medicines, adherenceLogs, logAdherence } = useApp();
   const { toast } = useToast();
+  const [now, setNow] = useState(new Date());
 
-  const today = new Date();
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(new Date());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(timer);
+  }, []);
+
   const todaySchedules = medicines
     .flatMap(med => {
+      const today = new Date();
       const isDueToday =
         med.schedule.frequency === 'daily' ||
         med.schedule.frequency === 'twice-daily' ||
@@ -49,11 +62,49 @@ export default function DashboardPage() {
     });
   };
 
+  useEffect(() => {
+    const checkSchedules = () => {
+      const currentTime = format(now, 'HH:mm');
+      todaySchedules.forEach(({ medicine, time }) => {
+        if (time === currentTime && !isTaken(medicine.id, time)) {
+          toast({
+            title: "Time for your medicine!",
+            description: (
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-4">
+                  <Image 
+                    src={medicine.imageUrl || "https://picsum.photos/seed/105/400/400"}
+                    data-ai-hint={medicine.imageHint || 'medicine'}
+                    alt={medicine.name}
+                    width={56}
+                    height={56}
+                    className="rounded-md object-cover"
+                  />
+                  <div>
+                    <p className="font-bold text-lg">{medicine.name}</p>
+                    <p>{medicine.dosage}</p>
+                  </div>
+                </div>
+                <Button size="sm" onClick={() => handleTakeDose(medicine.id, medicine.name, time)} className="w-full">
+                  Take Dose
+                </Button>
+              </div>
+            ),
+            duration: 30000, // Show for 30 seconds
+          });
+        }
+      });
+    };
+
+    checkSchedules();
+  }, [now, todaySchedules, isTaken, toast, handleTakeDose]);
+
+
   return (
     <div className="flex flex-col gap-8">
       <div>
         <h1 className="text-3xl font-headline font-bold">Welcome Back!</h1>
-        <p className="text-muted-foreground">Here's your medication summary for today, {format(today, 'EEEE, MMMM do')}.</p>
+        <p className="text-muted-foreground">Here's your medication summary for today, {format(new Date(), 'EEEE, MMMM do')}.</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
