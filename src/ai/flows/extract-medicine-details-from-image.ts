@@ -9,6 +9,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { parseExtractedMedicineData } from './parse-extracted-medicine-data';
 
 const ExtractMedicineDetailsFromImageInputSchema = z.object({
   photoDataUri: z
@@ -32,19 +33,6 @@ export async function extractMedicineDetailsFromImage(
   return extractMedicineDetailsFromImageFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'extractMedicineDetailsFromImagePrompt',
-  input: {schema: ExtractMedicineDetailsFromImageInputSchema},
-  output: {schema: ExtractMedicineDetailsFromImageOutputSchema},
-  prompt: `You are an AI assistant that extracts medicine details from an image of a medicine label.
-
-  Analyze the following text extracted from the image and identify the medicine name, dosage, and instructions.
-  Return the information in a structured JSON format.
-  Make your best guess, and if a field cannot be determined, mark it as unknown.
-
-  Extracted Text: {{ extractText }}
-  `,
-});
 
 const extractMedicineDetailsFromImageFlow = ai.defineFlow(
   {
@@ -53,29 +41,28 @@ const extractMedicineDetailsFromImageFlow = ai.defineFlow(
     outputSchema: ExtractMedicineDetailsFromImageOutputSchema,
   },
   async input => {
-    // Call googleAI vision model
+    // Call googleAI vision model to extract text
     const visionResponse = await ai.generate({
-      model: 'gemini-vision-1.5-flash',
+      model: 'gemini-1.5-flash',
       prompt: [
         {
           media: {url: input.photoDataUri},
         },
         {
-          text: 'Extract the text from this medicine label',
+          text: 'Extract all text from this image of a medicine label.',
         },
       ],
-      config: {
-        // Explicitly ask for text extraction
-        responseModalities: ['TEXT'],
-      },
     });
 
     const extractedText = visionResponse.text;
 
-    const {output} = await prompt({
-      extractText: extractedText,
-    });
+    // Call the parsing flow
+    const parsedData = await parseExtractedMedicineData({ extractedText });
 
-    return output!;
+    return {
+        medicineName: parsedData.name,
+        dosage: parsedData.dosage,
+        instructions: parsedData.instructions
+    };
   }
 );

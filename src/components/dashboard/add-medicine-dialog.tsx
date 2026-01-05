@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Camera, Dna, FileText, Loader2, Pill, Plus, X } from "lucide-react";
+import { Camera, FileText, Loader2, Plus, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -99,9 +99,9 @@ export function AddMedicineDialog() {
         try {
           const result = await extractMedicineDetailsFromImage({ photoDataUri: dataUri });
           form.reset({
-            name: result.medicineName,
-            dosage: result.dosage,
-            instructions: result.instructions,
+            name: result.medicineName === 'Unknown' ? '' : result.medicineName,
+            dosage: result.dosage === 'Unknown' ? '' : result.dosage,
+            instructions: result.instructions === 'Unknown' ? '' : result.instructions,
             schedule: { frequency: "daily", times: ["09:00"], days: [] }
           });
           toast({
@@ -293,81 +293,4 @@ export function AddMedicineDialog() {
                                         {day.label}
                                       </Button>
                                     </FormControl>
-                                  </FormItem>
-                                )
-                              }}
-                            />
-                           ))}
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                )}
-
-                <Controller
-                  control={form.control}
-                  name="schedule.times"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Time(s)</FormLabel>
-                      <div className="flex flex-col gap-2">
-                        {field.value.map((time, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                           <Select
-                              value={time}
-                              onValueChange={(newTime) => {
-                                const newTimes = [...field.value];
-                                newTimes[index] = newTime;
-                                field.onChange(newTimes);
-                              }}
-                            >
-                              <SelectTrigger>
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {timeSlots.map(slot => <SelectItem key={slot} value={slot}>{slot}</SelectItem>)}
-                              </SelectContent>
-                            </Select>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => {
-                                const newTimes = field.value.filter((_, i) => i !== index);
-                                field.onChange(newTimes);
-                              }}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ))}
-                         <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={() => field.onChange([...field.value, '09:00'])}
-                          className={watchFrequency === "daily" && field.value.length >= 1 ? "hidden" : ""
-                             || watchFrequency === "twice-daily" && field.value.length >= 2 ? "hidden" : ""
-                          }
-                        >
-                          <Plus className="mr-2 h-4 w-4" /> Add Time
-                        </Button>
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <DialogFooter>
-                <Button type="submit">Save Medicine</Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        )}
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-    
+                                  </Ite...

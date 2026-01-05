@@ -19,9 +19,9 @@ const ParseExtractedMedicineDataInputSchema = z.object({
 export type ParseExtractedMedicineDataInput = z.infer<typeof ParseExtractedMedicineDataInputSchema>;
 
 const ParseExtractedMedicineDataOutputSchema = z.object({
-  name: z.string().describe('The name of the medicine.'),
-  dosage: z.string().describe('The dosage of the medicine.'),
-  instructions: z.string().describe('The instructions for taking the medicine.'),
+  name: z.string().describe('The name of the medicine. If not found, return "Unknown".'),
+  dosage: z.string().describe('The dosage of the medicine (e.g., "10mg", "500mg"). If not found, return "Unknown".'),
+  instructions: z.string().describe('The instructions for taking the medicine (e.g., "Take one tablet daily"). If not found, return "Unknown".'),
 });
 export type ParseExtractedMedicineDataOutput = z.infer<typeof ParseExtractedMedicineDataOutputSchema>;
 
@@ -41,16 +41,12 @@ const prompt = ai.definePrompt({
 
   - Medicine Name: The brand name or generic name of the medicine.
   - Dosage: The strength or amount of the medicine to be taken.
-  - Instructions: Specific instructions on how to take the medicine (e.g., \"Take one tablet daily with food\").
+  - Instructions: Specific instructions on how to take the medicine (e.g., "Take one tablet daily with food").
+
+  If any piece of information cannot be found in the text, you must return "Unknown" for that field. Do not leave any fields blank.
 
   Extracted Text: {{{extractedText}}}
-
-  Please provide the structured data in the following format:
-  {
-    "name": "Medicine Name",
-    "dosage": "Dosage",
-    "instructions": "Instructions"
-  }`,
+  `,
 });
 
 const parseExtractedMedicineDataFlow = ai.defineFlow(
@@ -61,6 +57,4 @@ const parseExtractedMedicineDataFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
-  }
-);
+    
