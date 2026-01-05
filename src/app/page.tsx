@@ -170,6 +170,12 @@ export default function LoginPage() {
               <Button className="w-full" type="submit">
                 Sign In
               </Button>
+               <p className="text-center text-sm text-muted-foreground">
+                Don't have an account?{' '}
+                <Link href="#" className="underline">
+                    Sign up
+                </Link>
+              </p>
               <p className="text-center text-sm text-muted-foreground">
                 This is a demo. Use any email and `password` or leave it blank to sign in.
               </p>
