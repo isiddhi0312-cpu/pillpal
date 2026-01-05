@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -11,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Pill } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 // SVGs for cartoon characters
 const OlderMan = () => (
@@ -70,6 +75,25 @@ const Syringe = () => (
 );
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = (e: React.FormEvent) => {
+    e.preventDefault();
+    // This is a demo. In a real app, you'd validate against a backend.
+    if (password === "password" || password === "") {
+      router.push("/dashboard");
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: "The password you entered is incorrect.",
+      });
+    }
+  };
+
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4 overflow-hidden">
       <div className="relative w-full max-w-sm">
@@ -103,40 +127,55 @@ export default function LoginPage() {
             Your AI-powered assistant to manage your medication.
           </p>
         </div>
-        <Card className="shadow-2xl rounded-xl z-10">
-          <CardHeader>
-            <CardTitle className="text-2xl font-headline">Welcome Back</CardTitle>
-            <CardDescription>
-              Enter your credentials to access your dashboard.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="name@example.com" required />
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link
-                  href="#"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
+        <form onSubmit={handleSignIn}>
+          <Card className="shadow-2xl rounded-xl z-10">
+            <CardHeader>
+              <CardTitle className="text-2xl font-headline">Welcome Back</CardTitle>
+              <CardDescription>
+                Enter your credentials to access your dashboard.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input 
+                  id="email" 
+                  type="email" 
+                  placeholder="name@example.com" 
+                  required 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
-              <Input id="password" type="password" required />
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-4">
-            <Button className="w-full" asChild>
-              <Link href="/dashboard">Sign In</Link>
-            </Button>
-            <p className="text-center text-sm text-muted-foreground">
-              This is a demo. Click "Sign In" to continue.
-            </p>
-          </CardFooter>
-        </Card>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+                  <Link
+                    href="#"
+                    className="ml-auto inline-block text-sm underline"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
+                <Input 
+                  id="password" 
+                  type="password" 
+                  required 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+              <Button className="w-full" type="submit">
+                Sign In
+              </Button>
+              <p className="text-center text-sm text-muted-foreground">
+                This is a demo. Use any email and `password` or leave it blank to sign in.
+              </p>
+            </CardFooter>
+          </Card>
+        </form>
       </div>
     </main>
   );
