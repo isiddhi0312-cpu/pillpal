@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "pill-bottle-1",
+      "description": "A white pill bottle.",
+      "imageUrl": "https://images.unsplash.com/photo-1588802060188-ee08afc87823?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwaWxsJTIwYm90dGxlfGVufDB8fHx8MTc2NzYwNjc3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pill bottle"
+    },
+    {
+      "id": "blister-pack-1",
+      "description": "A blister pack of pills.",
+      "imageUrl": "https://images.unsplash.com/photo-1631980838902-e1eea9c12c67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGlsbHMlMjBwYWNrfGVufDB8fHx8MTc2NzYwNjc3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pills pack"
+    },
+    {
+      "id": "pill-bottle-2",
+      "description": "Another pill bottle.",
+      "imageUrl": "https://images.unsplash.com/photo-1583088580009-2d947c3e90a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwaWxsc3xlbnwwfHx8fDE3Njc2MDY3NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pills"
+    },
+    {
+      "id": "vitamin-bottle-1",
+      "description": "A bottle of vitamins.",
+      "imageUrl": "https://images.unsplash.com/photo-1687200267887-e334037363f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2aXRhbWluJTIwYm90dGxlfGVufDB8fHx8MTc2NzYwNjc3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "vitamin bottle"
+    },
+    {
+      "id": "default-medicine",
+      "description": "A generic image for medicine.",
+      "imageUrl": "https://images.unsplash.com/photo-1628771065518-0d82f1938462?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtZWRpY2luZXxlbnwwfHx8fDE3Njc2MDY3NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "medicine"
+    }
+  ]
 }
