@@ -293,4 +293,94 @@ export function AddMedicineDialog() {
                                         {day.label}
                                       </Button>
                                     </FormControl>
-                                  </Ite...
+                                  </FormItem>
+                                );
+                              }}
+                            />
+                           ))}
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                
+                <FormField
+                  control={form.control}
+                  name="schedule.times"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Time(s)</FormLabel>
+                      <div className="flex flex-col gap-2">
+                        {field.value.map((time, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <Select
+                              value={time}
+                              onValueChange={(newTime) => {
+                                const newTimes = [...field.value];
+                                newTimes[index] = newTime;
+                                field.onChange(newTimes);
+                              }}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {timeSlots.map(slot => (
+                                  <SelectItem key={slot} value={slot}>{slot}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                             {field.value.length > 1 && (
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => {
+                                        const newTimes = field.value.filter((_, i) => i !== index);
+                                        field.onChange(newTimes);
+                                    }}
+                                >
+                                    <X className="w-4 h-4" />
+                                </Button>
+                             )}
+                          </div>
+                        ))}
+                         <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                             const requiredTimes = watchFrequency === 'twice-daily' ? 2 : 1;
+                             if(field.value.length < requiredTimes) {
+                                field.onChange([...field.value, "17:00"]);
+                             }
+                          }}
+                           disabled={
+                              (watchFrequency === 'twice-daily' && field.value.length >= 2) ||
+                              (watchFrequency !== 'twice-daily' && field.value.length >= 1)
+                           }
+                        >
+                          <Plus className="mr-2 h-4 w-4" /> Add time
+                        </Button>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+              </div>
+
+              <DialogFooter>
+                <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
+                <Button type="submit">Save Medicine</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
