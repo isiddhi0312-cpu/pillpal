@@ -1,16 +1,18 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import type { Medicine, AdherenceLog } from '@/lib/types';
-import { initialMedicines, initialAdherenceLogs } from '@/lib/data';
+import type { Medicine, AdherenceLog, UserProfile } from '@/lib/types';
+import { initialMedicines, initialAdherenceLogs, initialUserProfile } from '@/lib/data';
 
 interface AppContextType {
   medicines: Medicine[];
-  addMedicine: (medicine: Omit<Medicine, 'id'>) => void;
+  addMedicine: (medicine: Omit<Medicine, 'id' | 'imageHint'>) => void;
   updateMedicine: (medicine: Medicine) => void;
   deleteMedicine: (id: string) => void;
   adherenceLogs: AdherenceLog[];
   logAdherence: (log: Omit<AdherenceLog, 'id'>) => void;
+  userProfile: UserProfile;
+  updateUserProfile: (profile: UserProfile) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -18,11 +20,13 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [medicines, setMedicines] = useState<Medicine[]>(initialMedicines);
   const [adherenceLogs, setAdherenceLogs] = useState<AdherenceLog[]>(initialAdherenceLogs);
+  const [userProfile, setUserProfile] = useState<UserProfile>(initialUserProfile);
 
-  const addMedicine = (medicine: Omit<Medicine, 'id'>) => {
+  const addMedicine = (medicine: Omit<Medicine, 'id' | 'imageHint'>) => {
     const newMedicine: Medicine = {
       ...medicine,
       id: new Date().toISOString(),
+      imageHint: 'medicine',
     };
     setMedicines(prev => [newMedicine, ...prev]);
   };
@@ -44,6 +48,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setAdherenceLogs(prev => [newLog, ...prev]);
   };
 
+  const updateUserProfile = (profile: UserProfile) => {
+    setUserProfile(profile);
+  };
+
   const value = {
     medicines,
     addMedicine,
@@ -51,6 +59,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     deleteMedicine,
     adherenceLogs,
     logAdherence,
+    userProfile,
+    updateUserProfile
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
@@ -63,5 +73,3 @@ export const useApp = () => {
   }
   return context;
 };
-
-    

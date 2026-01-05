@@ -40,6 +40,9 @@ interface MedicineCardProps {
 const getNextDose = (medicine: Medicine) => {
     // This is a simplified logic. A real app would need a more robust scheduling library.
     const now = new Date();
+    if (!medicine.schedule.times || medicine.schedule.times.length === 0) {
+        return 'No time set';
+    }
     const [hour, minute] = medicine.schedule.times[0].split(':').map(Number);
     const todayDoseTime = new Date();
     todayDoseTime.setHours(hour, minute, 0, 0);
@@ -106,7 +109,7 @@ export function MedicineCard({ medicine }: MedicineCardProps) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem>
+                <DropdownMenuItem disabled>
                     <Edit className="mr-2 h-4 w-4" /> Edit
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleDelete} className="text-destructive focus:text-destructive">
@@ -141,5 +144,3 @@ export function MedicineCard({ medicine }: MedicineCardProps) {
     </Card>
   );
 }
-
-    

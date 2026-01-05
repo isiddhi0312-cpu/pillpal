@@ -1,4 +1,4 @@
-import type { Medicine, AdherenceLog } from '@/lib/types';
+import type { Medicine, AdherenceLog, UserProfile } from '@/lib/types';
 import { subDays, setHours, setMinutes } from 'date-fns';
 
 export const initialMedicines: Medicine[] = [
@@ -70,4 +70,9 @@ export const initialAdherenceLogs: AdherenceLog[] = [
   { id: 'm3b', medicineId: '2', medicineName: 'Metformin', takenAt: setMinutes(setHours(subDays(new Date(), 3), 20), 5), scheduledTime: '20:00' },
 ];
 
-    
+export const initialUserProfile: UserProfile = {
+    name: "Jane Doe",
+    email: "jane.doe@example.com",
+    age: 35,
+    chronicDiseases: "None"
+};

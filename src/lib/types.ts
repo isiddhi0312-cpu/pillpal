@@ -11,6 +11,7 @@ export interface Medicine {
   instructions: string;
   schedule: Schedule;
   imageUrl?: string;
+  imageHint?: string;
 }
 
 export interface AdherenceLog {
@@ -19,4 +20,11 @@ export interface AdherenceLog {
   medicineName: string;
   takenAt: Date;
   scheduledTime: string;
+}
+
+export interface UserProfile {
+    name: string;
+    email: string;
+    age?: number;
+    chronicDiseases?: string;
 }

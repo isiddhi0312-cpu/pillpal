@@ -8,7 +8,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, Pill, LineChart, Settings } from "lucide-react";
+import { LayoutDashboard, Pill, LineChart, Settings, CreditCard } from "lucide-react";
 
 const links = [
   {
@@ -25,6 +25,11 @@ const links = [
     href: "/dashboard/reports",
     label: "Adherence Report",
     icon: LineChart,
+  },
+    {
+    href: "/dashboard/billing",
+    label: "Billing",
+    icon: CreditCard,
   },
   {
     href: "/dashboard/settings",
@@ -55,5 +60,3 @@ export function DashboardNav() {
     </SidebarMenu>
   );
 }
-
-    
