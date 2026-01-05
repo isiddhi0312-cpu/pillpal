@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import type { Medicine, AdherenceLog, UserProfile } from '@/lib/types';
 import { initialMedicines, initialAdherenceLogs, initialUserProfile } from '@/lib/data';
 
@@ -12,7 +12,7 @@ interface AppContextType {
   adherenceLogs: AdherenceLog[];
   logAdherence: (log: Omit<AdherenceLog, 'id'>) => void;
   userProfile: UserProfile;
-  updateUserProfile: (profile: UserProfile) => void;
+  updateUserProfile: (profile: Partial<UserProfile>) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -21,6 +21,21 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [medicines, setMedicines] = useState<Medicine[]>(initialMedicines);
   const [adherenceLogs, setAdherenceLogs] = useState<AdherenceLog[]>(initialAdherenceLogs);
   const [userProfile, setUserProfile] = useState<UserProfile>(initialUserProfile);
+
+  useEffect(() => {
+    // On mount, check if there's a user profile in sessionStorage from sign-up
+    const storedProfile = sessionStorage.getItem('userProfile');
+    if (storedProfile) {
+      try {
+        const parsedProfile = JSON.parse(storedProfile);
+        setUserProfile(prevProfile => ({ ...prevProfile, ...parsedProfile }));
+        // Optional: clear the storage after reading to prevent stale data on subsequent visits
+        // sessionStorage.removeItem('userProfile');
+      } catch (error) {
+        console.error("Failed to parse user profile from sessionStorage", error);
+      }
+    }
+  }, []);
 
   const addMedicine = (medicine: Omit<Medicine, 'id' | 'imageHint'>) => {
     const newMedicine: Medicine = {
@@ -48,8 +63,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setAdherenceLogs(prev => [newLog, ...prev]);
   };
 
-  const updateUserProfile = (profile: UserProfile) => {
-    setUserProfile(profile);
+  const updateUserProfile = (profile: Partial<UserProfile>) => {
+    setUserProfile(prev => ({...prev, ...profile}));
   };
 
   const value = {

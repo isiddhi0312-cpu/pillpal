@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Pill } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Textarea } from "@/components/ui/textarea";
 
 // SVGs for cartoon characters
 const OlderMan = () => (
@@ -74,30 +75,12 @@ const Syringe = () => (
     </svg>
 );
 
-export default function LoginPage() {
-  const router = useRouter();
-  const { toast } = useToast();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSignIn = (e: React.FormEvent) => {
-    e.preventDefault();
-    // This is a demo. In a real app, you'd validate against a backend.
-    if (password === "password" || password === "") {
-      router.push("/dashboard");
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: "The password you entered is incorrect.",
-      });
-    }
-  };
+export default function AuthPage() {
+  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4 overflow-hidden">
       <div className="relative w-full max-w-sm">
-
         {/* Floating Characters & Icons */}
         <div className="absolute -top-16 -left-20">
           <OlderMan />
@@ -109,12 +92,11 @@ export default function LoginPage() {
           <Child />
         </div>
         <div className="absolute top-1/2 -right-20">
-            <MedicineBottle />
+          <MedicineBottle />
         </div>
         <div className="absolute bottom-0 -right-10">
-            <Syringe />
+          <Syringe />
         </div>
-
 
         <div className="flex flex-col items-center justify-center gap-4 mb-8">
           <div className="bg-primary text-primary-foreground p-4 rounded-full shadow-md z-10">
@@ -127,62 +109,162 @@ export default function LoginPage() {
             Your AI-powered assistant to manage your medication.
           </p>
         </div>
-        <form onSubmit={handleSignIn}>
-          <Card className="shadow-2xl rounded-xl z-10">
-            <CardHeader>
-              <CardTitle className="text-2xl font-headline">Welcome Back</CardTitle>
-              <CardDescription>
-                Enter your credentials to access your dashboard.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder="name@example.com" 
-                  required 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link
-                    href="#"
-                    className="ml-auto inline-block text-sm underline"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
-                <Input 
-                  id="password" 
-                  type="password" 
-                  required 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col gap-4">
-              <Button className="w-full" type="submit">
-                Sign In
-              </Button>
-               <p className="text-center text-sm text-muted-foreground">
-                Don't have an account?{' '}
-                <Link href="#" className="underline">
-                    Sign up
-                </Link>
-              </p>
-              <p className="text-center text-sm text-muted-foreground">
-                This is a demo. Use any email and `password` or leave it blank to sign in.
-              </p>
-            </CardFooter>
-          </Card>
-        </form>
+
+        {authMode === "login" ? (
+          <LoginForm setAuthMode={setAuthMode} />
+        ) : (
+          <SignUpForm setAuthMode={setAuthMode} />
+        )}
       </div>
     </main>
+  );
+}
+
+
+function LoginForm({ setAuthMode }: { setAuthMode: (mode: "login" | "signup") => void }) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === "password" || password === "") {
+      router.push("/dashboard");
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: "The password you entered is incorrect.",
+      });
+    }
+  };
+
+  return (
+    <form onSubmit={handleSignIn}>
+      <Card className="shadow-2xl rounded-xl z-10">
+        <CardHeader>
+          <CardTitle className="text-2xl font-headline">Sign In</CardTitle>
+          <CardDescription>
+            Enter your credentials to access your dashboard.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="name@example.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <div className="flex items-center">
+              <Label htmlFor="password">Password</Label>
+              <Link
+                href="#"
+                onClick={(e) => { e.preventDefault(); toast({ title: "Forgot Password", description: "This feature is not yet implemented." })}}
+                className="ml-auto inline-block text-sm underline"
+              >
+                Forgot your password?
+              </Link>
+            </div>
+            <Input
+              id="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-4">
+          <Button className="w-full" type="submit">
+            Sign In
+          </Button>
+          <p className="text-center text-sm text-muted-foreground">
+            Don't have an account?{' '}
+            <Link href="#" onClick={(e) => { e.preventDefault(); setAuthMode("signup"); }} className="underline">
+              Sign up
+            </Link>
+          </p>
+          <p className="text-center text-sm text-muted-foreground">
+            This is a demo. Use any email and `password` or leave it blank to sign in.
+          </p>
+        </CardFooter>
+      </Card>
+    </form>
+  );
+}
+
+function SignUpForm({ setAuthMode }: { setAuthMode: (mode: "login" | "signup") => void }) {
+  const router = useRouter();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [diseases, setDiseases] = useState('');
+
+  const handleSignUp = (e: React.FormEvent) => {
+    e.preventDefault();
+    const userProfile = {
+      name,
+      email,
+      age: age ? parseInt(age, 10) : undefined,
+      chronicDiseases: diseases
+    };
+    // In a real app, you'd save this to a backend. Here, we save to sessionStorage.
+    sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
+    router.push('/dashboard');
+  };
+
+  return (
+    <form onSubmit={handleSignUp}>
+      <Card className="shadow-2xl rounded-xl z-10">
+        <CardHeader>
+          <CardTitle className="text-2xl font-headline">Create Account</CardTitle>
+          <CardDescription>
+            Join PillPal today to start managing your health.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="name">Full Name</Label>
+            <Input id="name" placeholder="John Doe" required value={name} onChange={e => setName(e.target.value)} />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="email-signup">Email</Label>
+            <Input id="email-signup" type="email" placeholder="name@example.com" required value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
+           <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="age">Age</Label>
+              <Input id="age" type="number" placeholder="35" value={age} onChange={e => setAge(e.target.value)} />
+            </div>
+             <div className="grid gap-2">
+              <Label htmlFor="password-signup">Password</Label>
+              <Input id="password-signup" type="password" required />
+            </div>
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="diseases">Chronic Diseases (optional)</Label>
+            <Textarea id="diseases" placeholder="e.g., Hypertension, Diabetes" value={diseases} onChange={e => setDiseases(e.target.value)} />
+          </div>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-4">
+          <Button className="w-full" type="submit">
+            Create Account
+          </Button>
+          <p className="text-center text-sm text-muted-foreground">
+            Already have an account?{' '}
+            <Link href="#" onClick={(e) => { e.preventDefault(); setAuthMode("login"); }} className="underline">
+              Sign In
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
+    </form>
   );
 }

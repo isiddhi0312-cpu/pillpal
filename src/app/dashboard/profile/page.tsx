@@ -75,7 +75,7 @@ export default function ProfilePage() {
                  <Controller
                   name="email"
                   control={form.control}
-                  render={({ field }) => <Input id="email" type="email" {...field} disabled />}
+                  render={({ field }) => <Input id="email" type="email" {...field} />}
                 />
               </div>
             </div>
