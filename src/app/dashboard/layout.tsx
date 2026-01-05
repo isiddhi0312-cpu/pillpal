@@ -10,6 +10,7 @@ import { Pill } from "lucide-react";
 import { DashboardNav } from "@/components/dashboard/dashboard-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
 import { AppProvider } from "@/lib/app-context";
+import { NoSsr } from "@/components/ui/no-ssr";
 
 export default function DashboardLayout({
   children,
@@ -40,7 +41,9 @@ export default function DashboardLayout({
             <div className="flex-1">
               {/* Could add breadcrumbs here */}
             </div>
-            <UserNav />
+            <NoSsr>
+              <UserNav />
+            </NoSsr>
           </header>
           <main className="flex-1 p-4 md:p-6 lg:p-8">
             {children}
